@@ -34,6 +34,29 @@ Public Class Login
     End Sub
 
     Protected Sub ASPxFormLayout1_E9_Click(sender As Object, e As EventArgs) Handles ASPxFormLayout1_E9.Click
+        Conn = New OleDbConnection(Constr)
+        Command = "update [LogData] set [SName]=@Name,[Occupation]=@occ,[Password]=@Pwd,[Gender]=@Gender,[Course]=@Crs,[DOB]=@DOB,[Hobbies]=@HBS where [Password]=@pwd"
+        Cmd = New OleDbCommand(Command, Conn)
+        Cmd.Parameters.AddWithValue("Name", txtName0.Text)
+        Cmd.Parameters.AddWithValue("occ", txtOcc0.Text)
+        Cmd.Parameters.AddWithValue("Pwd", txtPwd0.Text)
+        Cmd.Parameters.AddWithValue("Gender", radGender0.SelectedIndex)
+        Cmd.Parameters.AddWithValue("Crs", ddlCourse.SelectedIndex)
+        Cmd.Parameters.AddWithValue("DOB", DOB0.Date)
+        Cmd.Parameters.AddWithValue("HBS", GetSelectedIndices(chkHobbies0))
+        Conn.Open()
+        Cmd.ExecuteNonQuery()
+        Conn.Close()
+        '[LogData] ([SName],[Occupation],[Password],[Gender],[Course],[DOB],[Hobbies]) values (@Name,@occ,@Pwd,@Gender,@Crs,@DOB,@HBS)
+    End Sub
 
+    Protected Sub ASPxFormLayout1_E10_Click(sender As Object, e As EventArgs) Handles ASPxFormLayout1_E10.Click
+        Conn = New OleDbConnection(Constr)
+        Command = "delete *from [LogData] where [Password]=@pwd"
+        Cmd = New OleDbCommand(Command, Conn)
+        Cmd.Parameters.AddWithValue("Pwd", txtPwd0.Text)
+        Conn.Open()
+        Cmd.ExecuteNonQuery()
+        Conn.Close()
     End Sub
 End Class

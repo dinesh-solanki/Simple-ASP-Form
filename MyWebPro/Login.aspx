@@ -9,6 +9,14 @@
     <title></title>
 </head>
 <body style="height: 341px">
+<script type="text/javascript">
+    function DeleteItem() {
+        if (confirm("Are you sure you want to delete ...?")) {
+            return true;
+        }
+        return false;
+    }
+</script>
     <form id="form1" runat="server">
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         <asp:Button ID="Button1" runat="server" Text="Search" />
@@ -86,9 +94,11 @@
                 <dx:LayoutItem Caption="" Name="Submit">
                     <LayoutItemNestedControlCollection>
                         <dx:LayoutItemNestedControlContainer runat="server">
-                            <dx:ASPxButton ID="ASPxFormLayout1_E9" runat="server" Text="Update">
-                            </dx:ASPxButton>
-                            <dx:ASPxButton ID="ASPxFormLayout1_E10" runat="server" Text="Delete">
+                            <dx:ASPxButton ID="ASPxFormLayout1_E9" runat="server" Text="Update"></dx:ASPxButton>
+                            <dx:ASPxButton ID="ASPxFormLayout1_E10" runat="server" Text="Delete" >
+                                <ClientSideEvents Click="function(s, e) {
+     e.processOnServer = confirm('Do you wish to delete this record?');          
+}" />
                             </dx:ASPxButton>
                         </dx:LayoutItemNestedControlContainer>
                     </LayoutItemNestedControlCollection>
